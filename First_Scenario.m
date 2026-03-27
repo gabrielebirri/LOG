@@ -18,6 +18,8 @@ thf = 2*pi;
 dth = 0.01;
 % [rr_i,vv_i] = par2car(a_i,e_i,inc_i,RAAN_i,w_i,theta_i,mu);
 plotOrbit (a_i,e_i,inc_i,RAAN_i,w_i,th0,thf,dth,mu);
+hold on
+grid on
 
 %% Final Orbit
 
@@ -27,5 +29,6 @@ vy_f = -4.117000;
 vz_f = -1.761000;
 rr = [rx_f,0,0];
 vv = [vx_f,vy_f,vz_f];
-[a_f,e_f,inc_f,RAAN_F,w_f,theta_f] = car2par(rr,vv,mu);
-plotOrbit (a_i,e_i,inc_i,RAAN_i,w_i,theta_i,th0,dth,mu);
+[a_f,e_f,inc_f,RAAN_f,w_f,theta_f] = car2par(rr,vv,mu);
+plotOrbit (a_f,e_f,inc_f,RAAN_f,w_f,theta_f,th0,dth,mu);
+
