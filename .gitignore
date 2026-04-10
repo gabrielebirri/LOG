@@ -1,0 +1,49 @@
+## --- MATLAB Specific ---
+# File di salvataggio automatico (autosave)
+*.asv
+
+# Figure salvate e file FIG
+# *.fig  # Decommenta se non vuoi versionare le interfacce grafiche
+
+# File di dati binari (spesso molto pesanti, meglio gestirli con LFS o non caricarli)
+*.mat
+
+# File MEX (compilati in C/C++, dipendenti dal sistema operativo)
+*.mex*
+
+# Cartelle di diagnostica e Code Generation
+slprj/
+codegen/
+*_ert_rtw/
+*.slxc
+
+# File di log e crash dump
+java.log.*
+matlab.crash
+
+## --- Simulink Specific ---
+# File temporanei di Simulink
+*.slx.autosave
+*.mdl.autosave
+*.bak
+
+## --- File di sistema e App Settings ---
+# Preferenze locali del desktop MATLAB e cronologia
+.SimulinkProject/
+_autosave_*.prj
+mex_*.xml
+
+# Cartelle nascoste di MATLAB (Project e Source Control)
+resources/
+.matlab/
+
+## --- OS & IDE General ---
+# Windows
+Thumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+
+# Log generici
+*.log
