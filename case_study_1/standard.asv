@@ -61,4 +61,4 @@ delta_t_5 = TOF(a_f, e_f, pi, w_f, mu)
 %% Total deltaV and time
 
 deltaV_tot = deltaV_cp + deltaV_cw + deltaV_PA1 + deltaV_PA2
-delta_t_tot = delta_t_1 + delta_t_2 + delta_t_3 + delta_t_4 + delta_t_5
+delta_t_tot = delta_
