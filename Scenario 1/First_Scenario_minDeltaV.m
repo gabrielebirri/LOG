@@ -29,7 +29,7 @@ vz_f = -1.761000;
 rr = [rx_f,0,0];
 vv = [vx_f,vy_f,vz_f];
 [a_f,e_f,inc_f,RAAN_f,w_f,theta_f] = car2par(rr,vv,mu);
-plotOrbitR (a_f,e_f,inc_f,RAAN_f,w_f,th0,thf,dth,mu);
+plotOrbit (a_f,e_f,inc_f,RAAN_f,w_f,th0,thf,dth,mu);
 
 % il seguente codice ha l'obiettivo di trovare il trasferimento che
 % minimizza il DeltaV necessario tentativo1
