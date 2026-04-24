@@ -34,7 +34,7 @@ vv = [vx_f,vy_f,vz_f];
 
 
 %% Change of the orbital plane of the initial orbit
-[deltaV_cp, om_2, th_cp] = changeOrbitalPlane(a_i, e_i, inc_i, RAAN_i, w_i, inc_i, RAAN_f, mu);
+[deltaV_cp, om_2, th_cp] = changeOrbitalPlane(a_i, e_i, inc_i, RAAN_i, w_i, inc_f, RAAN_f, mu);
 
 % Time 1
 delta_t_1 = TOF(a_i, e_i, w_i, th_cp, mu);
@@ -54,15 +54,16 @@ delta_t_3 = TOF(a_i, e_i, th_cw1(1), 0, mu);
 
 %% Bitangent transfer
 clc
-[deltaV_PA1, deltaV_PA2, delta_t_4] = bitangentTransfer(a_i, e_i, a_f, e_f, 'pa', mu);
+[deltaV_PA1, deltaV_PA2, delta_t_4] = bitangentTransfer(a_i, e_i, a_f, e_f, 'ap', mu);
 
 % Time 5 (to get to the final anomaly)
 delta_t_5 = TOF(a_f, e_f, pi, theta_f, mu);
 
 %% Total deltaV and time
 
-deltaV_tot = deltaV_cp + deltaV_cw + deltaV_PA1 + deltaV_PA2;
+deltaV_tot = abs(deltaV_cp) + abs(deltaV_cw) + abs(deltaV_PA1) + abs(deltaV_PA2);
 disp(deltaV_tot)
+
 delta_t_tot = delta_t_1 + delta_t_2 + delta_t_3 + delta_t_4 + delta_t_5;
 disp(delta_t_tot)
 
