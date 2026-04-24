@@ -23,10 +23,12 @@ hold on
 % Final Orbit
 
 rx_f = -17874.100000;
+ry_f = -12975.567000;   %[km]
+rz_f = 2124.941500;     %[km]
 vx_f = 2.779000;
 vy_f = -4.117000;
 vz_f = -1.761000;
-rr = [rx_f,0,0];
+rr = [rx_f,ry_f,rz_f];
 vv = [vx_f,vy_f,vz_f];
 [a_f,e_f,inc_f,RAAN_f,w_f,theta_f] = car2par(rr,vv,mu);
 plotOrbit (a_f,e_f,inc_f,RAAN_f,w_f,th0,thf,dth,mu);
@@ -62,3 +64,6 @@ rapporto = a_f/a_i; % =  0.9708
 [T4] = TOF(a_f, e_f, theta, thi(1), mu);
 
 [T5] = TOF(a_f, e_f, thi(1), theta_f, mu);
+
+DeltaVtot = DeltaV1 + DeltaV2 + DeltaV3 + DeltaV
+Ttot = T1 + T2 + T3 + T4 + T5
