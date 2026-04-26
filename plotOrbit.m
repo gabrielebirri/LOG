@@ -1,4 +1,4 @@
-function plotOrbit (a,e,i,OM,om,th0,thf,dth,mu)
+function plotOrbit(a,e,i,OM,om,th0,thf,dth,mu,col)
 
 % 3D orbit plot
 %
@@ -12,17 +12,16 @@ function plotOrbit (a,e,i,OM,om,th0,thf,dth,mu)
 % thf   [1x1] final true anomaly        [rad]
 % dth   [1x1] true anomaly step size    [rad]
 % mu    [1x1] gravitational parameter   [km^3/s^2]
+% col   color to highlight the orbit    [-]
 
 th = th0:dth:thf; % true anomaly vector
 n = length(th);
 rr = zeros(3,n);
-vv = zeros(3,n);
 for  k = 1:length(th)
-    [rr_k,vv_k] = par2car(a,e,i,OM,om,th(k),mu);
+    [rr_k,~] = par2car(a,e,i,OM,om,th(k),mu);
     rr(:,k) = rr_k;
-    vv(:,k) = vv_k;
 end
-plot3(rr(1,:),rr(2,:),rr(3,:), 'LineWidth',2, 'Color' ,'k');
+plot3(rr(1,:),rr(2,:),rr(3,:), 'LineWidth',2, 'Color' ,col);
 axis equal;
 xlabel('X [km]'); 
 ylabel('Y [km]'); 
@@ -31,12 +30,6 @@ title('Orbital Trajectory Simulation');
 view(3); % 3D standard view
 grid on;
 hold on;
-
-%% PLot of Earth Surface (as a Sphere)
-
-[sx, sy, sz] = sphere(30);
-R_earth = 6378;
-surf (R_earth*sx, R_earth*sy,R_earth*sz,'FaceColor', 'blue', 'EdgeColor', 'none', 'FaceAlpha', 1); % surface plot of Earth
 
 
 end
