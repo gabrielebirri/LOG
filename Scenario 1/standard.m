@@ -1,10 +1,11 @@
-% Standard maneuver for the orbital change
+% Standard maneuver for first scenario orbital change
 % ----------------------------------------------------------------------
 % This script implements the standard procedure for an orbital change
 % maneuver
 
 % Final result of the script will consist of the total deltaV of the 
 % maneuver and the total time necessary
+% ----------------------------------------------------------------------
 
 clear
 clc
@@ -37,12 +38,12 @@ vv = [vx_f,vy_f,vz_f];
 [deltaV_cp, om_2, th_cp] = changeOrbitalPlane(a_i, e_i, inc_i, RAAN_i, w_i, inc_f, RAAN_f, mu);
 
 % Time 1
-delta_t_1 = TOF(a_i, e_i, w_i, th_cp, mu);
+delta_t_1 = TOF(a_i, e_i, theta_i, th_cp, mu);
 
 %% Change of the pericenter argument
 clc
 
-[deltaV_cw, th_cw, th_cw1] = changePericenterArg(a_i, e_i, w_i, w_f, mu);
+[deltaV_cw, th_cw, th_cw1] = changePericenterArg(a_i, e_i, om_2, w_f, mu);
 
 
 % We are choosing the true anomaly that minimizes delta t to get to the
@@ -54,7 +55,7 @@ delta_t_3 = TOF(a_i, e_i, th_cw1(1), 0, mu);
 
 %% Bitangent transfer
 clc
-[deltaV_PA1, deltaV_PA2, delta_t_4] = bitangentTransfer(a_i, e_i, a_f, e_f, 'ap', mu);
+[deltaV_PA1, deltaV_PA2, delta_t_4] = bitangentTransfer(a_i, e_i, a_f, e_f, 'pa', mu);
 
 % Time 5 (to get to the final anomaly)
 delta_t_5 = TOF(a_f, e_f, pi, theta_f, mu);
