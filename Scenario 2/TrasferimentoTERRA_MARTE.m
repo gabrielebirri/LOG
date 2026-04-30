@@ -59,7 +59,7 @@ crea_corpo_celeste('Mars.jpg' , raggio_pianeta, xm, ym, zm);
 % definizione dei punti iniziali e finali:
 [r1,v1] = par2car(a_i,e_i,i_i,OM_i,om_i,0,mu);
 
-[r2,v2] = par2car(a_f,e_f,i_f,OM_f,om_f,pi,mu);
+[r2,v2] = par2car(a_f,e_f,i_f,OM_f,om_f,2*pi,mu);
 
 % determinazione piano orbitale di trasferimento:
 
@@ -74,11 +74,11 @@ N = N/norm(N);
 if dot(N, [0,1,0]) >= 0
     OM_T = acos(dot(N,[1,0,0]));
 else
-    OM_T = 2*pi - cos(dot(N,[1,0,0]));   
+    OM_T = 2*pi - acos(dot(N,[1,0,0]));   
 end
 
 % GRID-SEARCH
-omVal = linspace(0,2*pi,10);
+omVal = linspace(0,2*pi,100);
 DeltaV = [];
 
 for om_T = omVal
@@ -101,23 +101,31 @@ for om_T = omVal
     r2T = T*r2;
 
     %anomalie vere sull'orbita di riferimento
-    th1_t = atan2(r1(1)/norm(r1), r1(2)/norm(r1));
+    th1_t = atan2(r1T(2)/norm(r1T), r1T(1)/norm(r1T));
     th1_t = mod(th1_t,2*pi);
 
-    th2_t = atan2(r2(1)/norm(r2), r2(2)/norm(r2));
+    th2_t = atan2(r2T(2)/norm(r2T), r2T(1)/norm(r2T));
     th2_t = mod(th2_t,2*pi);
-
-    % parametri di forma
-
-    e_t = (norm(r2) - norm(r1))/(norm(r1)*cos(th1_t) - norm(r2)*cos(th2_t));
-    a_t = norm(r1)*(1 + e_t*cos(th1_t))/(1 - e_t^2);
 
     v1T = T*v1;
     v2T = T*v2;
 
-    DeltaV = [DeltaV; norm(v1T - v1) + norm(v2 - v2T)];
+    % parametri di forma
 
-    plotOrbit(a_t,e_t,i_T,OM_T,om_T,th1_t,th2_t,0.01,mu,'k');
+   
+    R1 = norm(r1);
+    R2 = norm(r2);
+
+    e_t = (R2 - R1)/(R1*cos(th1_t) - R2*cos(th2_t));
+
+    if(e_t < 0 || e_t>1)
+        continue
+    else
+        a_t = norm(r1)*(1 + e_t*cos(th1_t))/(1 - e_t^2);
+        DeltaV = [DeltaV; norm(v1T - v1) + norm(v2 - v2T)];
+
+        plotOrbit(a_t,e_t,i_T,OM_T,om_T,th1_t,th2_t,0.01,mu,'b');
+        hold on
+    end
+
 end
-
-min(DeltaV)
